@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "api/signal.js",
   "scripts": {
-    "start": "node api/signal.js", 
+    "start": "node api/signal.js",
     "dev": "vercel dev",
     "build": "vercel build"
   },
@@ -19,6 +19,6 @@
     "vercel": "^27.0.0"
   },
   "engines": {
-    "node": "16.x"
+    "node": "22.x"
   }
 }
