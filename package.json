@@ -1,0 +1,24 @@
+{
+  "name": "webrtc-signaling",
+  "version": "1.0.0",
+  "main": "api/signal.js",
+  "scripts": {
+    "start": "node api/signal.js", 
+    "dev": "vercel dev",
+    "build": "vercel build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "WebRTC signaling server for real-time communication",
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "vercel": "^27.0.0"
+  },
+  "engines": {
+    "node": "16.x"
+  }
+}
