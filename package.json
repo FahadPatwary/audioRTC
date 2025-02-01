@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node api/signal.js",
     "dev": "vercel dev",
-    "build": "vercel build"
+    "build": "vercel build",
+    "vercel-build": "vercel build"
   },
   "keywords": [],
   "author": "",
