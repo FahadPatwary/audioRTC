@@ -4,22 +4,18 @@
   "main": "api/signal.js",
   "scripts": {
     "start": "node api/signal.js",
-    "dev": "node api/signal.js",
-    "build": "vercel build"
+    "dev": "node api/signal.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "WebRTC signaling server for real-time communication",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.21.2",
-    "socket.io": "^4.8.1",
-    "cors": "^2.8.5"
-  },
-  "devDependencies": {
-    "vercel": "^27.0.0"
+    "socket.io": "^4.8.1"
   },
   "engines": {
-    "node": "22.x"
+    "node": ">=14"
   }
 }
