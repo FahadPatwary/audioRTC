@@ -14,7 +14,10 @@ const io = new Server(server, {
 
 // Add the CSP header
 app.use((req, res, next) => {
-  res.setHeader('Content-Security-Policy', "connect-src 'self' https://audiortc-48b39feib-fahadpatwarys-projects.vercel.app wss://audiortc-48b39feib-fahadpatwarys-projects.vercel.app https://seriousserver-production.up.railway.app wss://seriousserver-production.up.railway.app");
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self'; connect-src 'self' https://audiortc-48b39feib-fahadpatwarys-projects.vercel.app wss://audiortc-48b39feib-fahadpatwarys-projects.vercel.app https://seriousserver-production.up.railway.app wss://seriousserver-production.up.railway.app"
+  );
   next();
 });
 
