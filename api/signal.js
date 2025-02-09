@@ -12,6 +12,12 @@ const io = new Server(server, {
   },
 });
 
+// Add the CSP header
+app.use((req, res, next) => {
+  res.setHeader('Content-Security-Policy', "connect-src 'self' https://audiortc-48b39feib-fahadpatwarys-projects.vercel.app wss://audiortc-48b39feib-fahadpatwarys-projects.vercel.app https://seriousserver-production.up.railway.app wss://seriousserver-production.up.railway.app");
+  next();
+});
+
 app.use(cors());
 
 app.get("/", (req, res) => {
@@ -22,59 +28,34 @@ io.on("connection", (socket) => {
   console.log("✅ [WebRTC] A user connected:", socket.id);
 
   socket.on("joinRoom", (roomId) => {
-    try {
-      socket.join(roomId);
-      console.log(`🔗 [WebRTC] User ${socket.id} joined room ${roomId}`);
-    } catch (error) {
-      console.error(`❌ Error joining room ${roomId}:`, error);
-    }
+    socket.join(roomId);
+    console.log(`🔗 [WebRTC] User ${socket.id} joined room ${roomId}`);
   });
 
   socket.on("leaveRoom", (roomId) => {
-    try {
-      socket.leave(roomId);
-      console.log(`🚪 [WebRTC] User ${socket.id} left room ${roomId}`);
-    } catch (error) {
-      console.error(`❌ Error leaving room ${roomId}:`, error);
-    }
+    socket.leave(roomId);
+    console.log(`🚪 [WebRTC] User ${socket.id} left room ${roomId}`);
   });
 
   socket.on("webrtc-offer", ({ roomId, offer, to }) => {
-    try {
-      console.log(`📡 [WebRTC] Offer from ${socket.id} to ${to}`);
-      io.to(to).emit("webrtc-offer", { from: socket.id, offer });
-    } catch (error) {
-      console.error(`❌ Error sending offer from ${socket.id} to ${to}:`, error);
-    }
+    console.log(`📡 [WebRTC] Offer from ${socket.id} to ${to}`);
+    io.to(to).emit("webrtc-offer", { from: socket.id, offer });
   });
 
   socket.on("webrtc-answer", ({ roomId, answer, to }) => {
-    try {
-      console.log(`🎧 [WebRTC] Answer from ${socket.id} to ${to}`);
-      io.to(to).emit("webrtc-answer", { from: socket.id, answer });
-    } catch (error) {
-      console.error(`❌ Error sending answer from ${socket.id} to ${to}:`, error);
-    }
+    console.log(`🎧 [WebRTC] Answer from ${socket.id} to ${to}`);
+    io.to(to).emit("webrtc-answer", { from: socket.id, answer });
   });
 
   socket.on("webrtc-ice-candidate", ({ roomId, candidate, to }) => {
-    try {
-      console.log(`❄️ [WebRTC] ICE Candidate from ${socket.id} to ${to}`);
-      io.to(to).emit("webrtc-ice-candidate", { from: socket.id, candidate });
-    } catch (error) {
-      console.error(`❌ Error sending ICE candidate from ${socket.id} to ${to}:`, error);
-    }
+    console.log(`❄️ [WebRTC] ICE Candidate from ${socket.id} to ${to}`);
+    io.to(to).emit("webrtc-ice-candidate", { from: socket.id, candidate });
   });
 
   socket.on("getPeers", (roomId, callback) => {
-    try {
-      const room = io.sockets.adapter.rooms.get(roomId);
-      const clients = room ? Array.from(room) : [];
-      callback(clients);
-    } catch (error) {
-      console.error(`❌ Error getting peers in room ${roomId}:`, error);
-      callback([]);
-    }
+    const room = io.sockets.adapter.rooms.get(roomId);
+    const clients = room ? Array.from(room) : [];
+    callback(clients);
   });
 
   socket.on("disconnect", () => {
@@ -82,7 +63,7 @@ io.on("connection", (socket) => {
   });
 });
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
   console.log(`🚀 WebRTC signaling server is running on port ${PORT}`);
 });
