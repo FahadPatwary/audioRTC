@@ -1,15 +1,9 @@
 {
     "version": 2,
-    "builds": [
-      {
-        "src": "api/signal.js",
-        "use": "@vercel/node"
-      }
-    ],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "api/signal.js"
+        "dest": "/api/signal.js"
       }
     ]
   }
