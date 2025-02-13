@@ -62,6 +62,7 @@ io.on("connection", (socket) => {
 
   socket.on("webrtc-offer", ({ roomId, offer, to }) => {
     console.log(`📡 [WebRTC] Offer from ${socket.id} to ${to}`);
+    console.log(`Room: ${roomId}, Offer:`, offer);
     io.to(to).emit("webrtc-offer", { 
       from: socket.id, 
       offer 
@@ -70,6 +71,7 @@ io.on("connection", (socket) => {
 
   socket.on("webrtc-answer", ({ roomId, answer, to }) => {
     console.log(`🎧 [WebRTC] Answer from ${socket.id} to ${to}`);
+    console.log(`Room: ${roomId}, Answer:`, answer);
     io.to(to).emit("webrtc-answer", { 
       from: socket.id, 
       answer 
@@ -78,6 +80,7 @@ io.on("connection", (socket) => {
 
   socket.on("webrtc-ice-candidate", ({ roomId, candidate, to }) => {
     console.log(`❄️ [WebRTC] ICE Candidate from ${socket.id} to ${to}`);
+    console.log(`Room: ${roomId}, Candidate:`, candidate);
     io.to(to).emit("webrtc-ice-candidate", { 
       from: socket.id, 
       candidate 
